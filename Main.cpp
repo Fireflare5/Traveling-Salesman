@@ -130,11 +130,11 @@ inline float hypot(const point2& u, const point2& v) {
 }
 
 inline void OptimizeTSP(const points& v) {
-    int iii = 0;
     for(int i = 0; i < (v.e.size() - 1); i++) {
         for(int ii = 1 + i; ii < v.e.size(); ii++) {
-            iii++;
-            cout << hypot(v[i],v[ii]) << " " << iii << "{" << i << " " << ii << "}" << endl;
+            if(i == 0 and ii == 1) {
+                int x = hypot(v[i],v[ii]);
+            }
         }
     }
 }
