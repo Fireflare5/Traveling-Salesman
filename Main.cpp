@@ -53,6 +53,55 @@ inline ostream& operator<<(ostream& out, const point2& v) {
     return out << v[0] << " " << v[1];
 }
 
+inline point2 operator*(const point2& v, float t) {
+    return point2(v.e[0] * t, v.e[1] * t);
+}
+
+inline point2 operator*(float t, const point2& v) {
+    return v * t;
+}
+
+inline point2 operator*(const point2& u, const point2& v) {
+    return point2(u.e[0] * v.e[0], u.e[1] * v.e[1]);
+}
+
+inline point2 operator/(const point2& v, float t) {
+    return v * (1/t);
+}
+
+inline point2 operator/(float t, const point2& v) {
+    return point2(t / v.e[0], t / v.e[1]);
+}
+
+inline point2 operator/(const point2& u, const point2& v) {
+    return u * (1/v);
+}
+
+inline point2 operator+(const point2& v, float t) {
+    return point2(v.e[0] + t, v.e[1] + t);
+}
+
+inline point2 operator+(float t, const point2& v) {
+    return v + t;
+}
+
+inline point2 operator+(const point2& u, const point2& v) {
+    return point2(u.e[0] + v.e[0], u.e[1] + v.e[1]);
+}
+
+inline point2 operator-(const point2& v, float t) {
+    return v + (-t);
+}
+
+inline point2 operator-(float t, const point2& v) {
+    return (-v) + t;
+}
+
+inline point2 operator-(const point2& u, const point2& v) {
+    return u + (-v);
+}
+
+
 class points
 {
     public:
@@ -83,5 +132,6 @@ int main() {
     points map(e);
     cout << map << endl;
     OptimizeTSP(map);
+    cout << map[0] * map[3] << endl;
     return 0;
 }
