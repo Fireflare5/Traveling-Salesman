@@ -117,13 +117,25 @@ inline ostream& operator<<(ostream& out, const points& v) {
     return out;
 }
 
-inline int sum(int n) {
-    return (n * (n - 1)) / 2;
+inline float sum(const point2& v) {
+    return v[0] + v[1];
+}
+
+inline float dot2(const point2& v) {
+    return sum(v*v);
+}
+
+inline float hypot(const point2& u, const point2& v) {
+    return sqrt(dot2(u - v));
 }
 
 inline void OptimizeTSP(const points& v) {
-    for(int i = 0; i < sum(v.e.size()); i++) {
-        cout << i << endl;
+    int iii = 0;
+    for(int i = 0; i < (v.e.size() - 1); i++) {
+        for(int ii = 1 + i; ii < v.e.size(); ii++) {
+            iii++;
+            cout << hypot(v[i],v[ii]) << " " << iii << "{" << i << " " << ii << "}" << endl;
+        }
     }
 }
 
@@ -132,6 +144,5 @@ int main() {
     points map(e);
     cout << map << endl;
     OptimizeTSP(map);
-    cout << map[0] * map[3] << endl;
     return 0;
 }
