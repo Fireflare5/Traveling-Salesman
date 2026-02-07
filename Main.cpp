@@ -24,9 +24,7 @@ class point2
             return *this;
         }
         point2& operator-= (const point2& v) {
-            e[0] -= v.e[0];
-            e[1] -= v.e[1];
-            return *this;
+            return *this += -v;
         }
         point2& operator-= (float t) {
             return *this += -t;
@@ -51,14 +49,39 @@ class point2
         }
 };
 
+inline ostream& operator<<(ostream& out, const point2& v) {
+    return out << v[0] << " " << v[1];
+}
+
 class points
 {
     public:
         vector<point2> e;
-        points(vector<point2> )
+        points(vector<point2> e1) : e{e1} {}
+        point2 operator[](int i) const {return e[i];}
 };
 
-int main() {
+inline ostream& operator<<(ostream& out, const points& v) {
+    for(int i = 0; i < v.e.size(); i++) {
+        out << "{"<< v[i] << "}" << " ";
+    }
+    return out;
+}
 
+inline int sum(int n) {
+    return (n * (n - 1)) / 2;
+}
+
+inline void OptimizeTSP(const points& v) {
+    for(int i = 0; i < sum(v.e.size()); i++) {
+        cout << i << endl;
+    }
+}
+
+int main() {
+    vector<point2> e = {point2(1,2),point2(3,4),point2(5,6),point2(7,8),point2(9,10)};
+    points map(e);
+    cout << map << endl;
+    OptimizeTSP(map);
     return 0;
 }
