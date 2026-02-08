@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <ranges>
+#include <algorithm>
 
 using namespace std;
 
@@ -130,17 +132,27 @@ inline float hypot(const point2& u, const point2& v) {
 }
 
 inline void OptimizeTSP(const points& v) {
+    vector<int> cities(v.e.size());
+    float x;
     for(int i = 0; i < (v.e.size() - 1); i++) {
         for(int ii = 1 + i; ii < v.e.size(); ii++) {
-            if(i == 0 and ii == 1) {
-                int x = hypot(v[i],v[ii]);
+            if(ii == 1 + i) {
+                x = hypot(v[i],v[ii]);
+                cities[i] = ii;
+            }  else if(x > hypot(v[i],v[ii]) and std::ranges::find(cities, ii) != cities.end()) {
+                x = hypot(v[i],v[ii]);
+                cities[i] = ii;
             }
         }
     }
+    for(int city: cities) {
+        cout << city << " ";
+    }
+    cout << "\n";
 }
 
 int main() {
-    vector<point2> e = {point2(1,2),point2(3,4),point2(5,6),point2(7,8),point2(9,10)};
+    vector<point2> e = {point2(1,2),point2(6,4),point2(5,6),point2(7,8),point2(9,10)};
     points map(e);
     cout << map << endl;
     OptimizeTSP(map);
