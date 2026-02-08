@@ -133,22 +133,27 @@ inline float hypot(const point2& u, const point2& v) {
 
 inline void OptimizeTSP(const points& v) {
     vector<int> cities(v.e.size());
+    float total;
     float x;
     float n;
-    for(int step1 = 0; step1 < v.e.size() - 1; step1++) {
+    srand(time(0));
+    float ntotal = 0;
+    for(int step1 = 0; step1 < (v.e.size() - 1); step1++) {
         x = 10000000000.0F;
         for(int step2 = 0; step2 < v.e.size(); step2++) {
             if(step2 == cities[step1]) {
                 step2++;
             }
-            n = hypot(v[step2],v[cities[step1]]);
-            if(n < x && ranges::find(cities,step2) == cities.end()) {
-                x = n;
-                cities[step1 + 1] = step2;
-
+            if(step2 < v.e.size()) {
+                n = hypot(v[step2],v[cities[step1]]);
+                if(n * (0.9F + ((rand() % 2) / 10.0F)) < x && ranges::find(cities,step2) == cities.end()) {
+                    x = n;
+                    cities[step1 + 1] = step2;
+                }
             }
         }
-        cout << x << " " << "{" << cities[step1] << " " << cities[step1+1] << "}" << endl;
+        ntotal += x;
+        cout << x << " " << "{" << cities[step1] << " " << cities[step1 + 1] << "}" << endl;
     }
     for(int city: cities) {
         cout << city << " ";
@@ -157,7 +162,7 @@ inline void OptimizeTSP(const points& v) {
 }
 
 int main() {
-    vector<point2> e = {point2(-2.76,4.88),point2(0.15,4.88),point2(4.18,2.98),point2(1.37,2.1),point2(-0.49,0),point2(-2.98,1.75)};
+    vector<point2> e = {point2(-2.76F,4.88F),point2(0.15F,4.88F),point2(4.18F,2.98F),point2(1.37F,2.1F),point2(-0.49F,0.0F),point2(-2.98F,1.75F)};
     points map(e);
     cout << map << endl;
     OptimizeTSP(map);
