@@ -137,8 +137,8 @@ inline void OptimizeTSP(const points& v) {
     float x;
     float n;
     float ntotal = 0;
-    int epoch = 1000000;
-    int temp = 9;
+    int epoch = 100000;
+    int temp = 6;
     srand(time(0));
     for(int i = 0; i < epoch; i++) {
         ntotal = 0;
