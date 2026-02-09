@@ -137,8 +137,8 @@ inline void OptimizeTSP(const points& v) {
     float x;
     float n;
     float ntotal = 0;
-    int epoch = 100000;
-    int temp = 6;
+    int epoch = 100;
+    int temp = 2;
     srand(time(0));
     for(int i = 0; i < epoch; i++) {
         ntotal = 0;
@@ -167,9 +167,9 @@ inline void OptimizeTSP(const points& v) {
     }
     cout << total << endl;
     for(int city: cities) {
-        cout << city + 1 << " ";
+        cout << city + 1 << " -> ";
     }
-    cout << "\n";
+    cout << "1\n";
 }
 
 int main() {
